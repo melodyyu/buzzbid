@@ -1,0 +1,8 @@
+#!/Users/pig/Desktop/cs6400-2024-01-Team050/Phase3/team050_buzzbid_system/venv/bin/python3.12
+# -*- coding: utf-8 -*-
+import re
+import sys
+from pygments.cmdline import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
