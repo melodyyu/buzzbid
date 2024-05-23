@@ -35,4 +35,13 @@ Phase 3 was where we brought our database to life by coding the UI and implement
 **I worked specifically on the Search window, the subsequent Search Results page, the Auction Results page and the summarized User Reports.** For the Search and Auction Results pages, I also implemented pagination to provide a cleaner look, with each page displaying only the top 20 results. Additionally, I overlaid a label on each result so that once clicked, the user was sent to the respective item page. 
 
 ## Setup: 
-To run the program, refer to the instructions provided in the README in Phase 3. The application requires first, that psycopg3 runs on your local machine. Additionally, an existing PostgreSQL database must have already been created, though it can be populated with with the files in the Demo Data folder. 
+To run the program, refer to the instructions provided in the README in Phase 3. The application requires first, that psycopg3 runs on your local machine. Additionally, an existing PostgreSQL database must have already been created, though it can be populated with with the files in the Demo Data folder, and must run concurrently with the application. 
+
+## Things I'd Change: 
+My desired changes all have to do with how we implemented in Phase 3. Namely: 
+- Rename the files to be more explanatory
+- Split the login.py file so that it no longer contains the code for all the UI, but rather, one file for each function
+- Update the UI for the parts I wasn't in charge of, to make the overall look more cohesive
+
+## Reflections
+I truly learned a lot from this project. I ended up getting a solid grasp on databases (as well as getting an A in the class), but to do so, I had to teach myself SQL and fight to make tkinter's UI look great. Thanks to that, I now have a solid grasp of both SQL and tkinter. I also used DBeaver for the first time, which was super helpful for visualizing databases (I had used PostgreSQL's main program to do so before, it was not pretty) and gained a better understanding of how Git commands and the branching system works (fun fact: I ended with over 25 test branches!). 
