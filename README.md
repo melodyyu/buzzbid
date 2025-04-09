@@ -35,7 +35,22 @@ Phase 3 was where we brought our database to life by coding the UI and implement
 **I worked specifically on the Search window, the subsequent Search Results page, the Auction Results page and the summarized User Reports.** For the Search and Auction Results pages, I also implemented pagination to provide a cleaner look, with each page displaying only the top 20 results. Additionally, I overlaid a label on each result so that once clicked, the user was sent to the respective item page. 
 
 ## Setup: 
-To run the program, refer to the instructions provided in the README in Phase 3. The application requires first, that psycopg3 runs on your local machine. Additionally, an existing PostgreSQL database must have already been created, though it can be populated with with the files in the Demo Data folder, and must run concurrently with the application. 
+To run the program, refer to the instructions provided in the README in Phase 3 to set up the environment. Note: the .env file **must** be created in the phase3 team050 folder. 
+
+The application requires first, that psycopg3 runs on your local machine. Run ```pip install psycopg2```
+
+#### Setting up the server
+Additionally, an existing PostgreSQL database must have already been created, though it can be populated with with the files in the Demo Data folder, and must run concurrently with the application. To create a PostgreSQL server, download from https://postgresapp.com/downloads.html. 
+
+Create a server named 'buzzbid' (though the naming convention is irrelevant). Double click the postgres server, and then in the terminal run these two commands (format these) ```GRANT ALL PRIVILEGES ON DATABASE "postgres to admin;```
+```GRANT and GRANT ALL ON SCHEMA public to admin;```
+this command allows for the database public files to be accessed through SQL queries (alternative is that when writing a sequel query, you would have to include public.<table_name>). 
+
+
+#### Setting up the database
+Download DBeaver, an IDE for databases (https://dbeaver.io/download/). Right click the 'postgres' server and go to 'Edit Connections' and (1) change the database to 'postgres' or whatever your server where you ran the commands above is named. Then, change the username and password to the same credentials as are in the .env file. Test the connection to ensure it's owrking.
+
+Only after this pre-work is done, can you then load the application. To do that, follow the instructions in the Phase 3 README. 
 
 ## Things I'd Change: 
 My desired changes all have to do with how we implemented in Phase 3. Namely: 
