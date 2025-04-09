@@ -17,11 +17,27 @@ class LoginWindow(ctk.CTk) :
         super().__init__()
         self.title("BuzzBid Login")
         self.geometry("800x600+200+200")
-        self.configure(bg="#D3D3D3")  # Light grey color
+        self.logo_photo = None
+        
+        # Update background color to match logo's background
+        bg_color = "#ffffff"  # Light gray that matches the logo background
+        self.configure(bg=bg_color)
 
+        # Create a frame for the logo with matching background
+        self.logo_frame = ctk.CTkFrame(self, fg_color=bg_color)
+        self.logo_frame.pack(pady=(50, 0))
 
-        self.input_frame = ctk.CTkFrame(self, fg_color="#D3D3D3")
-        self.input_frame.pack(pady=(150, 100), padx=150, fill='both', expand=True)
+        # Load and display the logo
+        logo_path = "media/buzzbid_logo.png"
+        logo_image = Image.open(logo_path)
+        logo_image = logo_image.resize((200, 200))
+        self.logo_photo = ctk.CTkImage(light_image=logo_image, dark_image=logo_image, size=(200, 200))
+        self.logo_label = ctk.CTkLabel(self.logo_frame, image=self.logo_photo, text="")
+        self.logo_label.pack()
+
+        # Input frame with matching background
+        self.input_frame = ctk.CTkFrame(self, fg_color=bg_color, border_width=0,border_color=bg_color)
+        self.input_frame.pack(pady=(20, 100), padx=150, fill='both', expand=True)
 
         # Username Entry
         self.username_label = ctk.CTkLabel(self.input_frame, text="Username:")
@@ -187,6 +203,7 @@ class MainMenuWindow(ctk.CTk):
         cancelled_auction_details_window = CancelledAuctionDetailsWindow(self.current_user)
 
     def logout(self):
+        self.logo_photo = None
         self.destroy()
         login_window = LoginWindow()
         login_window.mainloop()
@@ -524,8 +541,8 @@ class SearchResults(ctk.CTk):
 
     #Overlay label on top of returned item_name on result page
     def place_label_at_index(self, row_index, column_index, label_text, item_id):
-        column_width = 250 
-        spacing_factor = 20 #spacing between the rows
+        column_width = 270 
+        spacing_factor = 18 #spacing between the rows
         move_down_amount = 35 #all labels shift down this amount holistically
 
         # Set the x and y coordinates based on row indices
@@ -536,7 +553,7 @@ class SearchResults(ctk.CTk):
         label_text = label_text[:40]
 
         #Create and place the label
-        item_label = tk.Label(self.input_frame, text=label_text, padx=10, pady=0.01, fg="blue", bg="white", cursor="hand2")
+        item_label = tk.Label(self.input_frame, text=label_text, padx=50, pady=-10, fg="blue", bg="white", cursor="hand2")
         # print ("ACTUAL LABEL HEIGHT:", item_label.winfo_height())
         item_label.place(x=x, y=y, anchor=tk.CENTER)  # Place label at calculated coordinates
 
@@ -837,8 +854,8 @@ class AuctionResultsWindow(ctk.CTk):
 
 
         # Frame for the report
-        self.report_frame = ctk.CTkFrame(self)
-        self.report_frame.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
+        self.input_frame = ctk.CTkFrame(self)
+        self.input_frame.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
 
         #Pagination variables
         self.results_per_page = 25 #number of results displayed on page
@@ -860,21 +877,21 @@ class AuctionResultsWindow(ctk.CTk):
         self.return_button = ctk.CTkButton(self, text="Done", command=self.return_to_main_menu)
         self.return_button.pack(side='right', padx=20, pady=10)
 
-    #Overlay label on top of returned item_name on result page
-    def place_label_at_index(self, row_index, column_index, label_text, item_id):
+    # Label function used exclusively for the auction results page
+    def place_label_at_index2(self, row_index, column_index, label_text, item_id):
         column_width = 270 
-        spacing_factor = 20 #spacing between the rows
+        spacing_factor = 18 #spacing between the rows
         move_down_amount = 35 #all labels shift down this amount holistically
 
         # Set the x and y coordinates based on row indices
-        x = column_width 
-        y = (row_index * spacing_factor) + move_down_amount  
+        x = column_width
+        y = (row_index * spacing_factor) + move_down_amount 
 
         #Truncate label_text to first 40 characters so it fits in column
         label_text = label_text[:46]
 
         #Create and place the label
-        item_label = tk.Label(self.report_frame, text=label_text, padx=20, pady=0.01, fg="blue", bg="white", cursor="hand2")
+        item_label = tk.Label(self.input_frame, text=label_text, padx=5, pady=-10, fg="blue", bg="white", cursor="hand2")
         # print ("ACTUAL LABEL HEIGHT:", item_label.winfo_height())
         item_label.place(x=x, y=y, anchor=tk.CENTER)  # Place label at calculated coordinates
 
@@ -882,14 +899,13 @@ class AuctionResultsWindow(ctk.CTk):
         item_label.bind("<Button-1>", lambda event, item_id=item_id: self.open_view_item_window(item_id))
         return item_label
 
-
     #Generates item result window using item_id
     def open_view_item_window(self, item_id):
         test_view_item_view = ViewItemWindow(self.current_user, item_id, None)
 
     #Clears previous labels 
     def clear_labels (self):
-        for label in self.report_frame.winfo_children():
+        for label in self.input_frame.winfo_children():
             if isinstance (label, tk.Label):
                 label.destroy() 
 
@@ -902,10 +918,13 @@ class AuctionResultsWindow(ctk.CTk):
             self.tree.destroy()
 
         columns = ["ID", "Item Name", "Sale Price", "Winner", "Auction Ended"]
-        self.tree = ttk.Treeview(self.report_frame, columns=columns, show="headings")
+        self.tree = ttk.Treeview(self.input_frame, columns=columns, show="headings")
         for col in columns:
             self.tree.heading(col, text=col)
             self.tree.column(col, anchor=tk.CENTER)
+
+        # Set the window size to match the input frame
+        # self.geometry("1200x800+200+200")
 
         #Set special widths for each column
         special_widths = {"ID": 100, "Item Name": 220, "Sale Price": 150, "Winner": 250, "Auction Ended": 250} 
@@ -924,7 +943,7 @@ class AuctionResultsWindow(ctk.CTk):
             self.tree.insert("", tk.END, values=item)
 
             #Place label in respective row in item_name column. Clicking window leads to its ViewItemResults window, generated through its item_id 
-            self.place_label_at_index(row_index, 2, item_name, item_id) 
+            self.place_label_at_index2(row_index, 2, item_name, item_id) 
 
             #Increment row index to place next item
             row_index += 1
