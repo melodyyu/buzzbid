@@ -52,11 +52,14 @@ Download DBeaver, an IDE for databases (https://dbeaver.io/download/). Right cli
 
 Only after this pre-work is done, can you then load the application. To do that, follow the instructions in the Phase 3 README. 
 
-## Things I'd Change: 
+## Things I'd Change Retrospectively: 
 My desired changes all have to do with how we implemented in Phase 3. Namely: 
 - Rename the files to be more explanatory
 - Split the login.py file so that it no longer contains the code for all the UI, but rather, one file for each function
 - Update the UI for the parts I wasn't in charge of, to make the overall look more cohesive
+- Refactor the code so that it's either more OOP and efficient
+- Potentially scale the application so that multiple users could access the database at once (make it cloud-based perhaps)
+- Add security measures 
 
 ## Reflections
 I truly learned a lot from this project. I ended up getting a solid grasp on databases (as well as getting an A in the class), but to do so, I had to teach myself SQL and fight to make tkinter's UI look great. Thanks to that, I now have a solid grasp of both SQL and tkinter. I also used DBeaver for the first time, which was super helpful for visualizing databases (I had used PostgreSQL's main program to do so before, it was not pretty) and gained a better understanding of how Git commands, resolving merge conflicts and the branching system works (fun fact: I ended with over 25 test branches!). I spent a tiresome amount of time of debugging, but due to that I now know how to walk through python's checkpoint() and VSCode's built in debugger. 
