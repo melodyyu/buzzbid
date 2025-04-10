@@ -42,7 +42,7 @@ The application requires first, that psycopg3 runs on your local machine. Run ``
 #### Setting up the server
 Additionally, an existing PostgreSQL database must have already been created, though it can be populated with with the files in the Demo Data folder, and must run concurrently with the application. To create a PostgreSQL server, download from https://postgresapp.com/downloads.html. 
 
-Create a server named 'buzzbid' (though the naming convention is irrelevant). Double click the postgres server, and then in the terminal run these two commands (format these) ```GRANT ALL PRIVILEGES ON DATABASE "postgres to admin;```
+Create a server named 'buzzbid' (though the naming convention is irrelevant). Double click the postgres server, and then in the terminal run these two commands ```GRANT ALL PRIVILEGES ON DATABASE "postgres to admin;```
 ```GRANT and GRANT ALL ON SCHEMA public to admin;```
 this command allows for the database public files to be accessed through SQL queries (alternative is that when writing a sequel query, you would have to include public.<table_name>). 
 
